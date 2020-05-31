@@ -36,8 +36,9 @@
 
             <Spinner
                 android:id="@+id/spinner_ordenar"
-                android:layout_width="368dp"
-                android:layout_height="64dp"
+                android:layout_width="310dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown" />
         </TableRow>
@@ -49,7 +50,7 @@
 
             <Button
                 android:id="@+id/btn_clearall"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#500202"
                 android:text="Limpar histórico"
@@ -139,6 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Se conduzir, a multa poderá ir até:"
+                android:textAlignment="center"
                 android:textColor="#0F3AAA"
                 android:textSize="22sp" />
         </TableRow>
@@ -162,19 +164,6 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/eliminar_44"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView132"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:visibility="invisible" />
-        </TableRow>
-
-        <TableRow
             android:id="@+id/eliminar_55"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -193,19 +182,6 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/eliminar_66"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView1321"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:visibility="invisible" />
-        </TableRow>
-
-        <TableRow
             android:id="@+id/eliminar_77"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -221,19 +197,6 @@
                 android:textColor="#FBFBFB"
                 android:textSize="24sp" />
 
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/eliminar_88"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView133"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:visibility="invisible" />
         </TableRow>
 
         <TableRow

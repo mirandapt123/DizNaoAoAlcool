@@ -58,15 +58,9 @@ public class TaFragment extends Fragment {
             eliminar.setVisibility(View.GONE);
             eliminar = inf.findViewById(R.id.eliminar_33);
             eliminar.setVisibility(View.GONE);
-            eliminar = inf.findViewById(R.id.eliminar_44);
-            eliminar.setVisibility(View.GONE);
             eliminar = inf.findViewById(R.id.eliminar_55);
             eliminar.setVisibility(View.GONE);
-            eliminar = inf.findViewById(R.id.eliminar_66);
-            eliminar.setVisibility(View.GONE);
             eliminar = inf.findViewById(R.id.eliminar_77);
-            eliminar.setVisibility(View.GONE);
-            eliminar = inf.findViewById(R.id.eliminar_88);
             eliminar.setVisibility(View.GONE);
             eliminar = inf.findViewById(R.id.eliminar_99);
             eliminar.setVisibility(View.GONE);
@@ -103,15 +97,9 @@ public class TaFragment extends Fragment {
                 eliminar.setVisibility(View.GONE);
                 eliminar = inf.findViewById(R.id.eliminar_33);
                 eliminar.setVisibility(View.GONE);
-                eliminar = inf.findViewById(R.id.eliminar_44);
-                eliminar.setVisibility(View.GONE);
                 eliminar = inf.findViewById(R.id.eliminar_55);
                 eliminar.setVisibility(View.GONE);
-                eliminar = inf.findViewById(R.id.eliminar_66);
-                eliminar.setVisibility(View.GONE);
                 eliminar = inf.findViewById(R.id.eliminar_77);
-                eliminar.setVisibility(View.GONE);
-                eliminar = inf.findViewById(R.id.eliminar_88);
                 eliminar.setVisibility(View.GONE);
                 eliminar = inf.findViewById(R.id.eliminar_99);
                 eliminar.setVisibility(View.GONE);
@@ -136,6 +124,15 @@ public class TaFragment extends Fragment {
             if (primeiro == 0) {
                 TextView msg = inf.findViewById(R.id.txt_Historico2);
                 msg.setText("Histórico:");
+
+                Button apagarTudo = (Button) inf.findViewById(R.id.btn_clearall);
+                apagarTudo.setOnClickListener( new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("Cliquei em apagar tudo","ID TA:"+ta.getId());
+                    }
+                });
             } else {
                 TableRow tr = inf.findViewById(R.id.eliminar_1111);
                 tr.setVisibility(View.GONE);
