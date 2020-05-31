@@ -52,7 +52,6 @@ public class TaFragment extends Fragment {
         TextView data = inf.findViewById(R.id.data_teste);
         data.setText("Teste realizado na data: "+ta.getData());
         if (primeiro == -1) {
-            Log.i("Dias de carta","aqui");
             TableRow eliminar = inf.findViewById(R.id.eliminar_11);
             eliminar.setVisibility(View.GONE);
             eliminar = inf.findViewById(R.id.eliminar_22);
@@ -141,6 +140,10 @@ public class TaFragment extends Fragment {
                 TableRow tr = inf.findViewById(R.id.eliminar_1111);
                 tr.setVisibility(View.GONE);
                 tr = inf.findViewById(R.id.eliminar_111);
+                tr.setVisibility(View.GONE);
+                tr = inf.findViewById(R.id.eliminar_ordenar);
+                tr.setVisibility(View.GONE);
+                tr = inf.findViewById(R.id.eliminar_limpar);
                 tr.setVisibility(View.GONE);
             }
         }

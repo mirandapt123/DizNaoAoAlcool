@@ -30,6 +30,33 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/eliminar_ordenar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Spinner
+                android:id="@+id/spinner_ordenar"
+                android:layout_width="368dp"
+                android:layout_height="64dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_limpar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn_clearall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#500202"
+                android:text="Limpar histórico"
+                android:textColor="#FFFFFF" />
+        </TableRow>
+
+        <TableRow
             android:id="@+id/eliminar_111"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
