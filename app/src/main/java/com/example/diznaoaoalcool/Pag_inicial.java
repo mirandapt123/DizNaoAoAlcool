@@ -111,10 +111,11 @@ public class Pag_inicial extends AppCompatActivity {
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                             break;
                         case R.id.nav_history:
-                            removeFrag();
+                            /*removeFrag();
                             selectedFragment = new HistoryFragment();
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment, "historico").commit();
-                            mostraHistorico();
+                            mostraHistorico("TA_DATA asc", 0);*/
+                            refreshMyData(0);
                             break;
                         case R.id.nav_fines:
                             removeFrag();
@@ -129,6 +130,11 @@ public class Pag_inicial extends AppCompatActivity {
     private void removeFrag() {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment instanceof BebidaFragment && fragment != null) {
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+        }
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment instanceof HistoricoDetalhadoFragment && fragment != null) {
                 getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
         }
@@ -215,19 +221,78 @@ public class Pag_inicial extends AppCompatActivity {
         }
     }
 
-    private void mostraHistorico() {
+    public void refreshMyData(int ordenar){
+        removeFrag();
+        Fragment selectedFragment = new HistoryFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment, "historico").commit();
+        switch (ordenar) {
+            case 0:
+                mostraHistorico("TA_DATA asc", 0);
+                break;
+            case 1:
+                mostraHistorico("TA_DATA desc", 1);
+                break;
+            case 2:
+                mostraHistorico("TA_RESULTADO asc", 2);
+                break;
+            case 3:
+                mostraHistorico("TA_RESULTADO desc", 3);
+                break;
+        }
+    }
+
+    public void mostraDetalhes(int ta_id, double resultado){
+        Fragment selectedFragment = new HistoryFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment, "historico").commit();
+        mostraDetalhesFrag(ta_id, resultado);
+    }
+
+    private void mostraDetalhesFrag(int ta_id, double resultado) {
+        // remove os fragmentos
+        removeFrag();
+        // obtem bebidas, copos, resultado, jejum e quantidade da db
+        listaBebida = new DataBase(this).listaBebidasDetalhe(ta_id);
+        listaCopo = new DataBase(this).listaCoposDetalhe(ta_id);
+        Log.i("Detalhes:", "TA_ID: "+ta_id);
+        Log.i("Detalhes:", "N_BEBIDAS:"+listaBebida.size()+" N_COPOS:"+listaCopo.size());
+        if (listaBebida != null && listaCopo != null) {
+            for (int i = 0; i < listaBebida.size(); i++) {
+                int quantidade = new DataBase(this).obtemQuantidade(ta_id, listaBebida.get(i).getId(), listaCopo.get(i).getId());
+                boolean jejum = new DataBase(this).obtemJejum(ta_id, listaBebida.get(i).getId(), listaCopo.get(i).getId());
+                Log.i("Detalhes:", "B_ID:"+listaBebida.get(i).getId()+" C_ID:"+listaCopo.get(i).getId());
+                if (i == listaBebida.size() -1) {
+                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebida.get(i), listaCopo.get(i), 0, quantidade, jejum);
+                    getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
+                } else if (i == 0) {
+                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebida.get(i), listaCopo.get(i), 1, quantidade, jejum);
+                    getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
+                } else {
+                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebida.get(i), listaCopo.get(i), -1, quantidade, jejum);
+                    getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
+                }
+            }
+        } else {
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+            Toast.makeText( this, "Ocorreu um erro, a voltar à página inicial.", Toast.LENGTH_SHORT ).show();
+        }
+    }
+
+    private void mostraHistorico(String order, int tipoOrder) {
         // remove os fragmentos
         removeFrag();
         // adiciona o fragmento do historico
-        listaTA = new DataBase(this).obtemTA(perfilActivo.getId());
+        listaTA = new DataBase(this).obtemTA(perfilActivo.getId(), order);
 
         if (listaTA != null) {
             for (int i = 0; i < listaTA.size(); i++) {
-                TaFragment aFragment = new TaFragment(listaTA.get(i), i);
+                TaFragment aFragment = new TaFragment(listaTA.get(i), i, tipoOrder);
                 getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
             }
         } else {
-            TaFragment aFragment = new TaFragment(new TA(), -1);
+            TaFragment aFragment = new TaFragment(new TA(), -1, -1);
             getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
         }
     }
@@ -257,21 +322,22 @@ public class Pag_inicial extends AppCompatActivity {
                 if (graduacao != 0) {
                     double gramasAlcool =  (graduacao * 0.01) * volume * quantidade;
                     double coeficiente = 0;
-                    CheckBox jejum = listaBebidaFrag.get(i).getView().findViewById(R.id.jejum);
+                    CheckBox jejum = listaBebidaFrag.get(i).getView().findViewById(R.id.jej);
+                    Log.i("Fragmento nº"+i,""+jejum.isChecked());
                     if (p.getSexo() == 0) {
                         if (jejum.isChecked()) {
-                            bebidas [j][5] = -1;
+                            bebidas [j][5] = 1;
                             coeficiente =  0.7;
                         } else {
-                            bebidas [j][5] = 1;
+                            bebidas [j][5] = -1;
                             coeficiente =  1.1;
                         }
                     } else {
                         if (jejum.isChecked()) {
-                            bebidas [j][5] = -1;
+                            bebidas [j][5] = 1;
                             coeficiente = 0.6;
                         } else {
-                            bebidas [j][5] = 1;
+                            bebidas [j][5] = -1;
                             coeficiente =  1.1;
                         }
                     }
@@ -312,7 +378,6 @@ public class Pag_inicial extends AppCompatActivity {
                     Toast.makeText( this, "Ocorreu um erro a guardar o resultado.", Toast.LENGTH_SHORT ).show();
                 }
                 Log.i("Guardar", "sim");
-                Toast.makeText( this, "A voltar à página principal.", Toast.LENGTH_SHORT ).show();
                 retornaHome();
             } else {
                 Log.i("Guardar", "não");
@@ -383,7 +448,6 @@ public class Pag_inicial extends AppCompatActivity {
             Date date2=new SimpleDateFormat("dd/MM/yyyy").parse(dateFormat.format(today));
             long diffInMillis = date2.getTime() - date1.getTime();
             long dateDiffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-            Log.i("Dias de carta",""+dateDiffInDays);
 
             if (dateDiffInDays > 1095 && !p.isProfissional()) {
                 if (taxaTotal >= 0.5) {

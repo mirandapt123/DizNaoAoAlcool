@@ -1,6 +1,8 @@
 package com.example.diznaoaoalcool;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +17,9 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import org.w3c.dom.Text;
@@ -34,14 +38,17 @@ public class TaFragment extends Fragment {
 
     private TA ta;
     private int primeiro;
+    private int tipoOrdenacao;
     private static View inf;
 
     public TaFragment() {
     }
 
-    public TaFragment(TA ta, int primeiro) {
+    public TaFragment(TA ta, int primeiro, int tipoOrder) {
         this.ta = ta;
         this.primeiro = primeiro;
+        this.tipoOrdenacao = tipoOrder;
+        Log.i("mais um criado","fragmento, ciclo infinito");
     }
 
     @Override
@@ -53,6 +60,12 @@ public class TaFragment extends Fragment {
         data.setText("Teste realizado na data: "+ta.getData());
         if (primeiro == -1) {
             TableRow eliminar = inf.findViewById(R.id.eliminar_11);
+            eliminar.setVisibility(View.GONE);
+            eliminar = inf.findViewById(R.id.eliminar_ordenar);
+            eliminar.setVisibility(View.GONE);
+            eliminar = inf.findViewById(R.id.eliminar_limpar);
+            eliminar.setVisibility(View.GONE);
+            eliminar = inf.findViewById(R.id.row_eliminar1);
             eliminar.setVisibility(View.GONE);
             eliminar = inf.findViewById(R.id.eliminar_22);
             eliminar.setVisibility(View.GONE);
@@ -130,8 +143,34 @@ public class TaFragment extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        Log.i("Cliquei em apagar tudo","ID TA:"+ta.getId());
+                        eliminarHistorico("Tem a certeza que deseja limpar o histórico?", -1);
                     }
+                });
+
+                Spinner dropdown = inf.findViewById(R.id.spinner_ordenar);
+                String[] items = new String [4];
+                items[0] = "Ordenar por data ASC";
+                items[1] = "Ordenar por data DESC";
+                items[2] = "Ordenar por valor ASC";
+                items[3] = "Ordenar por valor DESC";
+
+                ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+                dropdown.setAdapter(adapter);
+
+                dropdown.setSelection(tipoOrdenacao);
+
+                dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        if(position != tipoOrdenacao)
+                            refreshActivity(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        // your code here
+                    }
+
                 });
             } else {
                 TableRow tr = inf.findViewById(R.id.eliminar_1111);
@@ -145,18 +184,30 @@ public class TaFragment extends Fragment {
             }
         }
 
-        Button apagarBtn = (Button) inf.findViewById(R.id.apagart);
-        apagarBtn.setOnClickListener( new View.OnClickListener() {
+        Button btn = (Button) inf.findViewById(R.id.apagart);
+        btn.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Log.i("Cliquei em apagar","ID TA:"+ta.getId());
+                eliminarHistorico("Tem a certeza que deseja limpar este teste do histórico?", ta.getId());
+            }
+        });
+
+        btn = (Button) inf.findViewById(R.id.ver_mais1);
+        btn.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("Cliquei em mostrar mais detalhes","ID TA:"+ta.getId());
+                mostraMaisDetalhes();
             }
         });
 
         return inf;
     }
 
+    //Calcula se o condutor passou no teste de alcoolémia
     private boolean calculaPassouTeste(Pessoa p) {
 
         try {
@@ -187,6 +238,7 @@ public class TaFragment extends Fragment {
 
     }
 
+    //Vai calcular o tipo de contra ordenação consoante a idade da carta do condutor e o tipo
     private void calculaTipo(TextView tipoContra) {
         Pessoa p = new DataBase(getContext()).listaPerfilActivo();
         try {
@@ -216,6 +268,52 @@ public class TaFragment extends Fragment {
             }
         } catch (ParseException e) {}
 
+    }
+
+    //elimina um ou todo o histórico, tudo depende se a variável idTA é -1 ou diferente de -1
+    private void eliminarHistorico(String msg, final int idTa) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Pim Pam Pum");
+        builder.setMessage(msg);
+        builder.setIcon(R.drawable.ic_history);
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+
+                if (idTa == -1) {
+                    new DataBase(getContext()).deleteHistory();
+                    Toast.makeText( getContext(), "O histórico foi limpo com sucesso.", Toast.LENGTH_LONG ).show();
+                    refreshActivity(0);
+                } else {
+                    new DataBase(getContext()).delete1History(idTa);
+                    Toast.makeText( getContext(), "O teste foi eliminado do histórico com sucesso.", Toast.LENGTH_LONG ).show();
+                    refreshActivity(0);
+                }
+            }
+        });
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    //'diz' à aplicação inicial para remover todos os fragmentos e voltar a fazer o método inicial (callback)
+    public void refreshActivity(int posicao){
+        Pag_inicial mDashboardActivity = (Pag_inicial) getActivity();
+        if(mDashboardActivity != null){
+            mDashboardActivity.refreshMyData(posicao);
+        }
+    }
+
+    //'diz' à aplicação inicial para remover todos os fragmentos e voltar a fazer o método inicial (callback)
+    public void mostraMaisDetalhes(){
+        Pag_inicial mDashboardActivity = (Pag_inicial) getActivity();
+        if(mDashboardActivity != null){
+            mDashboardActivity.mostraDetalhes(ta.getId(), ta.getResultado());
+        }
     }
 
 }

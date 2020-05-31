@@ -36,11 +36,12 @@
 
             <Spinner
                 android:id="@+id/spinner_ordenar"
-                android:layout_width="310dp"
+                android:layout_width="353dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown" />
+
         </TableRow>
 
         <TableRow
@@ -50,7 +51,7 @@
 
             <Button
                 android:id="@+id/btn_clearall"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#500202"
                 android:text="Limpar histórico"
@@ -77,7 +78,7 @@
                 android:id="@+id/data_teste"
                 android:layout_width="379dp"
                 android:layout_height="match_parent"
-                android:text="O resultado deste teste foi:"
+                android:text="Data do teste:"
                 android:textColor="#0E0E0E"
                 android:textSize="16sp" />
 
@@ -234,8 +235,9 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/row_eliminar1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/apagart"
