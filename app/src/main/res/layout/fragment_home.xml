@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="688dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginBottom="5dp">
+
+        <TableLayout
+            android:id="@+id/tabelaBebidas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:id="@+id/linhaQuant"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <EditText
+                            android:id="@+id/input_quantidade"
+                            android:layout_width="244dp"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Quantas bebidas consumiu?"
+                            android:inputType="number" />
+
+                        <Button
+                            android:id="@+id/btn_bora"
+                            android:layout_width="166dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="vamosAIsso"
+                            android:text="Vamos lá a isso" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/erro_home"
+                            android:layout_width="246dp"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textColor="#F44336"
+                            android:textSize="17sp"
+                            android:visibility="invisible" />
+                    </TableRow>
+
+                </TableLayout>
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoProfile">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="#4d5aa4"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/estgoh" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="395dp"
+        android:layout_height="621dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:stretchColumns="1">
+
+
+            <TableRow
+                android:layout_width="368dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Não foi encontrado um perfil. Crie um:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="#4c5ba4"
+                    android:textSize="23sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/nome_input"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Nome"
+                    android:inputType="textPersonName" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/idade_input"
+                    android:layout_height="64dp"
+                    android:clickable="true"
+                    android:ems="15"
+                    android:enabled="true"
+                    android:hint="Idade"
+                    android:inputType="number" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/peso_input"
+                    android:layout_height="64dp"
+                    android:hint="Peso"
+                    android:inputType="number" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/data_input"
+                    android:layout_height="64dp"
+                    android:hint="Data da carta (e.g. 10/05/1990)"
+                    android:inputType="date" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp">
+
+                <TextView android:text="Sexo:" />
+            </TableRow>
+
+            <TableRow
+
+                android:layout_width="match_parent"
+                android:gravity="center">
+
+                <Spinner
+                    android:id="@+id/sexo_input"
+                    android:layout_height="64dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp">
+
+                <TextView android:text="A sua carta é profissional?" />
+            </TableRow>
+
+            <TableRow
+
+                android:layout_width="match_parent"
+                android:gravity="center">
+
+                <Spinner
+                    android:id="@+id/profissional_input"
+                    android:layout_height="64dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:gravity="center">
+
+
+                <TextView
+                    android:id="@+id/msg_erro_validacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="#F80505"
+                    android:textSize="20sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="380dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_validar"
+                    android:layout_height="67dp"
+                    android:background="#4c5ba4"
+                    android:onClick="criaPerfil"
+                    android:text="Criar perfil"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+            </TableRow>
+
+
+        </TableLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BebidaFragment">
+
+    <TableLayout
+        android:layout_width="393dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="8dp"
+        android:stretchColumns="1" >
+
+        <TableRow
+            android:id="@+id/eliminar_1111"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_Historico2"
+                android:layout_width="401dp"
+                android:layout_height="wrap_content"
+                android:text="A carregar dados..."
+                android:textAlignment="center"
+                android:textColor="#491010"
+                android:textSize="30sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_111"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/e_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/data_teste"
+                android:layout_width="379dp"
+                android:layout_height="match_parent"
+                android:text="O resultado deste teste foi:"
+                android:textColor="#0E0E0E"
+                android:textSize="16sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/e_2"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="#DDD0D0"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/resultado1"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="XXX g/l"
+                android:textColor="#0E0E0E"
+                android:textSize="60sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/e_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/passouNao1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cuidado! Não pode conduzir!"
+                android:textAlignment="center"
+                android:textColor="#E40B0B"
+                android:textSize="26sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_11"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView142"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="invisible" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_22"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_dinheiro1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Se conduzir, a multa poderá ir até:"
+                android:textColor="#0F3AAA"
+                android:textSize="22sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_33"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E12C2C"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/multa_dinheiro1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="X€ de coima máxima."
+                android:textAlignment="center"
+                android:textColor="#FBFBFB"
+                android:textSize="24sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_44"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView132"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="invisible" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_55"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E12C2C"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/pontos1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Perda de X pontos."
+                android:textAlignment="center"
+                android:textColor="#FBFBFB"
+                android:textSize="24sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_66"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView1321"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="invisible" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_77"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E12C2C"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/inibicao1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Até X meses sem carta."
+                android:textAlignment="center"
+                android:textColor="#FBFBFB"
+                android:textSize="24sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_88"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView133"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="invisible" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eliminar_99"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E12C2C"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tipoContra1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Contraordenação X"
+                android:textAlignment="center"
+                android:textColor="#FBFBFB"
+                android:textSize="24sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/e_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/ver_mais1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000949"
+                android:text="Ver mais detalhes"
+                android:textColor="#FFFFFF" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/apagart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#910101"
+                android:text="Clique para apagar este teste"
+                android:textColor="#FFFFFF" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/e5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+    </TableLayout>
+
+</FrameLayout>
