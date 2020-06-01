@@ -74,7 +74,7 @@ public class DataBase extends SQLiteOpenHelper {
   }
 
   // verificar a quantidade de perfis
-  public boolean quantidadePerfil() {
+  public int quantidadePerfil() {
     SQLiteDatabase db = this.getReadableDatabase();
     Cursor c = db.rawQuery("SELECT count(*) FROM " + TABLE_PESSOA, null);
     int i = 0;
@@ -86,11 +86,7 @@ public class DataBase extends SQLiteOpenHelper {
     c.close();
     db.close();
 
-    if (i == 0) {
-      return false;
-    } else {
-      return true;
-    }
+    return i;
   }
 
   // lista as bebidas genéricas
@@ -426,6 +422,49 @@ public class DataBase extends SQLiteOpenHelper {
     }
   }
 
+  // altera dados de uma pessoa
+  public boolean alterarPessoa(Pessoa p){
+    ContentValues values = new ContentValues();
+    SQLiteDatabase db = this.getWritableDatabase();
+
+    long result = -1;
+    values.put("P_NOME", p.getNome());
+    values.put("P_IDADE", p.getIdade());
+    values.put("P_PESO", p.getPeso());
+    values.put("P_SEXO", p.getSexo());
+    values.put("P_ANOCARTA", p.getAno_carta());
+    values.put("P_PROFISSIONAL", p.isProfissional());
+    values.put("P_ACTIVO", p.isActivo());
+    result = db.update(TABLE_PESSOA, values, "P_ID=" + p.getId(), null);
+
+    db.close();
+
+    if(result == -1){
+      return false;
+    }else {
+      return true;
+    }
+  }
+
+  public boolean verificaNomePessoa(String nome){
+    SQLiteDatabase db = this.getReadableDatabase();
+    Cursor c = db.rawQuery("SELECT P_NOME FROM " + TABLE_PESSOA + " WHERE P_NOME = '" + nome + "'", null);
+    String resultado = null;
+    if (c.moveToFirst()) {
+      resultado = c.getString(0);
+    }
+    while (c.moveToNext());
+
+    c.close();
+    db.close();
+
+    if(resultado == null){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   // verifica uma bebida existe
   public boolean verificaBebida() {
     SQLiteDatabase db = this.getReadableDatabase();
@@ -492,6 +531,23 @@ public class DataBase extends SQLiteOpenHelper {
     return null;
   }
 
+  // altera o perfil de utilizador ativo
+  public boolean alteraPerfilActivo(Pessoa pessoa) {
+    int id = listaPerfilActivo().getId();
+    ativaDesativaPerfil(id, 0);
+    ativaDesativaPerfil(pessoa.getId(), 1);
+    return true;
+  }
+
+  // ativa ou desativa o perfil de um utilizador
+  public boolean ativaDesativaPerfil(int id, int activo){
+    SQLiteDatabase db = this.getWritableDatabase();
+    db.execSQL("UPDATE " + TABLE_PESSOA + " SET P_ACTIVO = " + activo + " WHERE P_ID = " + id);
+    db.close();
+    return true;
+  }
+
+  // lista os perfis
   public List<Pessoa> listaPerfis() {
     List<Pessoa> pessoas = new ArrayList<>();
     SQLiteDatabase db = this.getReadableDatabase();

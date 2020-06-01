@@ -65,7 +65,7 @@
                             android:id="@+id/txt_perfil_actual"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Perfil actual:"
+                            android:text="  Perfil actual:"
                             android:textColor="#125C97"
                             android:textSize="18sp" />
 
@@ -161,7 +161,7 @@
                             android:id="@+id/txt_change_profile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Perfil selecionado: "
+                            android:text="  Perfil selecionado: "
                             android:textColor="#472525"
                             android:textSize="18sp" />
 

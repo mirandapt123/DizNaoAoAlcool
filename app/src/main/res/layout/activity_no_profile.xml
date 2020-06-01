@@ -170,7 +170,6 @@
                     android:id="@+id/btn_validar"
                     android:layout_height="67dp"
                     android:background="#4c5ba4"
-                    android:onClick="criaPerfil"
                     android:text="Criar perfil"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />

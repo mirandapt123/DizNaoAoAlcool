@@ -55,8 +55,18 @@ public class Pag_inicial extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        //começar no fragmento da home
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        Bundle extras = getIntent().getExtras();
+        // é diferente de null apenas quando se faz edição de dados de um perfil
+        if(extras != null){
+            //começar no framento definições
+            if(extras.getInt("definicoes") == 1) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
+            }
+        }else{
+            //começar no fragmento da home
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        }
+
         //obter o perfil activo
         perfilActivo = perfilActivo();
 
