@@ -38,8 +38,22 @@ public class SettingsFragment extends Fragment {
         });
 
         Button botaoMudar = (Button) inf.findViewById(R.id.btn_change_profile);
-        Button botaoCriar = (Button) inf.findViewById(R.id.btn_add_profile);
+        botaoMudar.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                changeProfile(inf, listaPessoas);
+            }
+        });
+
+        Button botaoCriar = (Button) inf.findViewById(R.id.btn_add_profile);
+        botaoCriar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                addProfile();
+            }
+        });
         return inf;
     }
 
@@ -66,5 +80,13 @@ public class SettingsFragment extends Fragment {
         Intent intent = new Intent(getContext(), NoProfile.class);
         intent.putExtra("pessoa", pessoa);
         startActivity(intent);
+    }
+
+    private void addProfile(){
+        startActivity(new Intent(getContext(), NoProfile.class));
+    }
+
+    private void changeProfile(View inf, List<Pessoa> pessoas){
+        Spinner profiles = inf.findViewById(R.id.spinner);
     }
 }
