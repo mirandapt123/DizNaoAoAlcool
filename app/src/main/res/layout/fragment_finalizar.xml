@@ -31,17 +31,29 @@
         <TableRow
             android:layout_width="381dp"
             android:layout_height="match_parent"
-            android:background="#DDD0D0"
+            android:background="#FFFFFF"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/resultado"
-                android:layout_width="340dp"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:text="XXX g/l"
-                android:textColor="#0E0E0E"
-                android:textSize="60sp" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/resultado"
+                        android:layout_width="368dp"
+                        android:layout_height="200dp"
+                        android:background="#DDD0D0"
+                        android:gravity="center"
+                        android:text="XXX g/l"
+                        android:textColor="#0E0E0E"
+                        android:textSize="60sp" />
+                </TableRow>
+
+            </TableLayout>
 
         </TableRow>
 
@@ -198,6 +210,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/eliminar_101"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -222,6 +235,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/eliminar_100"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -245,7 +259,8 @@
                 android:backgroundTint="#000949"
                 android:onClick="save"
                 android:text="Voltar ao menu principal"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                tools:ignore="OnClick" />
         </TableRow>
 
     </TableLayout>

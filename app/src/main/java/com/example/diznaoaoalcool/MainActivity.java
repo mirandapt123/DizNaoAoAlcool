@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
     }
 
+    //verifica se existe um perfil activo na aplicação
     private boolean existeUserLigado() {
         if (new DataBase(this).quantidadePerfil()) {
             return true;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //colocar app em ecrã 'cheio'
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
+    // ao clicar no ecrã, vai verificar se existe um utilizador activo, se não, manda criar um user, se sim, vai para a pagina inicial
     public boolean onTouchEvent(MotionEvent event){
         if(!existeUserLigado()) {
             startActivity(new Intent(MainActivity.this, NoProfile.class));

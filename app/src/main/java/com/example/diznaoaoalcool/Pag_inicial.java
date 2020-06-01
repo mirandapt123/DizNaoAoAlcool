@@ -43,6 +43,7 @@ public class Pag_inicial extends AppCompatActivity {
     public static double taxaTotal;
 
     @Override
+    //ao criar verificamos se as bebidas/copos estão adicionados, caso não, adicionamos
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_inicial);
@@ -50,10 +51,13 @@ public class Pag_inicial extends AppCompatActivity {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
+        //colocar o menu
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
+        //começar no fragmento da home
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        //obter o perfil activo
         perfilActivo = perfilActivo();
 
         insereBebida();
@@ -63,6 +67,7 @@ public class Pag_inicial extends AppCompatActivity {
         listaCopo = new DataBase(this).listaCopos();
     }
 
+    // se não existir, adiciona
     private void insereBebida() {
         if (new DataBase(this).verificaBebida()) {
             new DataBase(this).insereBebidaGenerica(new Bebida(-1, "Cerveja Light", 4));
@@ -78,6 +83,7 @@ public class Pag_inicial extends AppCompatActivity {
         }
     }
 
+    //se não existir, adiciona
     private void insereCopo() {
         if (new DataBase(this).verificaCopo()) {
             new DataBase(this).insereCopoGenerico(new Copo(-1, "Copo de Shot", 30));
@@ -93,6 +99,7 @@ public class Pag_inicial extends AppCompatActivity {
         }
     }
 
+    //configuração do menu, estar à escuta de eventos no mesmo
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -123,6 +130,16 @@ public class Pag_inicial extends AppCompatActivity {
                 }
             };
 
+    //voltar ao menu das coimas
+    public void voltaMenu() {
+        //remove todos os fragmentos
+        removeFrag();
+        //coloca o menu das coimas
+        Fragment selectedFragment = new FinesFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+    }
+
+    //remove todos os fragmentos para não haver erros
     private void removeFrag() {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment instanceof BebidaFragment && fragment != null) {
@@ -172,10 +189,12 @@ public class Pag_inicial extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
+    //obtem o perfil activo
     private Pessoa perfilActivo () {
         return new DataBase(this).listaPerfilActivo();
     }
 
+    //verifica os dados inseridos para calcular o teste
     public void vamosAIsso(View view) {
         TextView quantidade = findViewById(R.id.input_quantidade);
         TextView msg_erro = findViewById(R.id.erro_home);
@@ -183,9 +202,11 @@ public class Pag_inicial extends AppCompatActivity {
         if (quantidade.getText().length() > 0) {
             int quantidadeInt = Integer.parseInt(quantidade.getText().toString());
 
-            if (quantidadeInt > 35) {
+            //não pode adicionar mais de 20 bebidas
+            if (quantidadeInt > 20) {
                 msg_erro.setText("Não sejas aldrabão, introduz uma quantia correcta.");
                 msg_erro.setVisibility(View.VISIBLE);
+            //tem de ser uma ou mais bebidas
             } else if (quantidadeInt <= 0) {
                 msg_erro.setText("Então para que é que queres fazer o teste?");
                 msg_erro.setVisibility(View.VISIBLE);
@@ -200,13 +221,14 @@ public class Pag_inicial extends AppCompatActivity {
 
     }
 
+    //coloca as bebidas, consoante a quantidade colocada pelo utilizador
     private void colocaFragmentos(int quantidade) {
-        Log.i("Fragmentos", "Estou a testar os fragmentos");
         TableRow quantidadeLinha = findViewById(R.id.linhaQuant);
         quantidadeLinha.setVisibility(View.GONE);
 
 
         for (int i = 0; i < quantidade; i++) {
+            //Se for a última bebida
             if (i < (quantidade - 1)) {
                 BebidaFragment aFragment = new BebidaFragment(1);
                 getSupportFragmentManager().beginTransaction().add(R.id.tabelaBebidas, aFragment, ""+i).commit();
@@ -221,6 +243,7 @@ public class Pag_inicial extends AppCompatActivity {
         removeFrag();
         Fragment selectedFragment = new HistoryFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment, "historico").commit();
+        //verifica o tipo de ordenação desejada
         switch (ordenar) {
             case 0:
                 mostraHistorico("TA_DATA asc", 0);
@@ -237,6 +260,7 @@ public class Pag_inicial extends AppCompatActivity {
         }
     }
 
+    //função que recebe a ordem para mostrar os detalhes de um teste
     public void mostraDetalhes(int ta_id, double resultado){
         Fragment selectedFragment = new HistoryFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment, "historico").commit();
@@ -252,9 +276,11 @@ public class Pag_inicial extends AppCompatActivity {
         if (listaBebidaCopo != null) {
             for (int i = 0; i < listaBebidaCopo.size(); i++) {
                 int quantidade = new DataBase(this).obtemQuantidade(ta_id, listaBebidaCopo.get(i).getId_b(), listaBebidaCopo.get(i).getId_c());
+                //se for o último
                 if (i == listaBebidaCopo.size() -1) {
                     HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebidaCopo.get(i), 0, quantidade);
                     getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
+                //se for o primeiro
                 } else if (i == 0) {
                     HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebidaCopo.get(i), 1, quantidade);
                     getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
@@ -264,6 +290,7 @@ public class Pag_inicial extends AppCompatActivity {
                 }
             }
         } else {
+            //se ocorrer um erro, acaba com a actividade e volta para a página inicial
             finish();
             overridePendingTransition(0, 0);
             startActivity(getIntent());
@@ -272,6 +299,7 @@ public class Pag_inicial extends AppCompatActivity {
         }
     }
 
+    //mostra o histórico
     private void mostraHistorico(String order, int tipoOrder) {
         // remove os fragmentos
         removeFrag();
@@ -289,6 +317,7 @@ public class Pag_inicial extends AppCompatActivity {
         }
     }
 
+    //calcula a taxa de alcoolemia
     public void calculaTaxa(View view) {
         listaBebidaFrag = getSupportFragmentManager().getFragments();
         taxaTotal = 0;
@@ -298,6 +327,7 @@ public class Pag_inicial extends AppCompatActivity {
             Pessoa p = new DataBase(this).listaPerfilActivo();
             int j = 0;
             for (int i = 1; i < listaBebidaFrag.size(); i++) {
+                //obtem dados introduzidos em cada bebida
                 SeekBar volumeSeek = listaBebidaFrag.get(i).getView().findViewById(R.id.volume_consumido);
                 SeekBar quantSeek = listaBebidaFrag.get(i).getView().findViewById(R.id.quantidade);
                 SeekBar graduacaoSeek = listaBebidaFrag.get(i).getView().findViewById(R.id.graduacao);
@@ -311,11 +341,14 @@ public class Pag_inicial extends AppCompatActivity {
                 bebidas [j][2] = volume;
                 bebidas [j][3] = quantidade;
                 bebidas [j][4] = graduacao;
+                //se a graduação for maior que 0
                 if (graduacao != 0) {
+                    //verifica as gramas que tem a bebida (alcool)
                     double gramasAlcool =  (graduacao * 0.01) * volume * quantidade;
                     double coeficiente = 0;
                     CheckBox jejum = listaBebidaFrag.get(i).getView().findViewById(R.id.jej);
                     Log.i("Fragmento nº"+i,""+jejum.isChecked());
+                    //verifica o sexo da pessoa, assim como se bebeu em jejum
                     if (p.getSexo() == 0) {
                         if (jejum.isChecked()) {
                             bebidas [j][5] = 1;
@@ -333,6 +366,7 @@ public class Pag_inicial extends AppCompatActivity {
                             coeficiente =  1.1;
                         }
                     }
+                    //calcula a taxa e adiciona à taxa total
                     double taxa = gramasAlcool / (p.getPeso() * coeficiente);
                     Log.i("Fragmento nº"+i,"Taxa de alcool: "+ taxa + " gr/l");
                     taxaTotal += taxa;
@@ -340,27 +374,39 @@ public class Pag_inicial extends AppCompatActivity {
                 }
                 j++;
             }
-            // remove os fragmentos da bebida
-            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof BebidaFragment && fragment != null) {
-                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-                }
-            }
+            // remove os fragmentos
+            removeFrag();
             // adiciona o fragmento do resultado
-            FinalizarFragment aFragment = new FinalizarFragment(calculaPassouTeste());
+            FinalizarFragment aFragment = new FinalizarFragment(calculaPassouTeste(), 0);
             getSupportFragmentManager().beginTransaction().add(R.id.tabelaBebidas, aFragment).commit();
         } else {
-            Log.i("Lista de fragmentos","É nula... Que se passa?");
+            Log.i("Lista de fragmentos","É nula... Que se passa? :(");
             Toast.makeText( this, "Ocorreu um erro, tente novamente.", Toast.LENGTH_SHORT ).show();
         }
     }
 
+    //retira os componentes do fragmento das coimas e coloca o fragmento finalizar com o resultado pedido
+    public void verCoima(View view) {
+        TextView taxa = findViewById(R.id.input_alcool);
+        taxaTotal = Double.parseDouble(taxa.getText().toString());
+
+        TableRow quantidadeLinha = findViewById(R.id.linhaQuant1);
+        quantidadeLinha.setVisibility(View.GONE);
+
+        FinalizarFragment aFragment = new FinalizarFragment(calculaPassouTeste(), 1);
+        getSupportFragmentManager().beginTransaction().add(R.id.tabelaCoimas, aFragment).commit();
+    }
+
+    //salva o teste
     public void save(View view) {
         listaBebidaFrag = getSupportFragmentManager().getFragments();
 
+        //se a lista for diferente de nula
         if (listaBebidaFrag != null) {
             CheckBox salvar = listaBebidaFrag.get(1).getView().findViewById(R.id.save_ceck);
+            //se quiser salvar
             if (salvar.isChecked()) {
+                //obtem os dados necessários
                 TextView coimaMax = listaBebidaFrag.get(1).getView().findViewById(R.id.multa_dinheiro);
                 TextView pontos = listaBebidaFrag.get(1).getView().findViewById(R.id.pontos);
                 TextView inib = listaBebidaFrag.get(1).getView().findViewById(R.id.inibicao);
@@ -370,10 +416,12 @@ public class Pag_inicial extends AppCompatActivity {
                     Toast.makeText( this, "Ocorreu um erro a guardar o resultado.", Toast.LENGTH_SHORT ).show();
                 }
                 Log.i("Guardar", "sim");
+                //volta para a página inicial
                 retornaHome();
             } else {
                 Log.i("Guardar", "não");
                 Toast.makeText( this, "A voltar à página principal.", Toast.LENGTH_SHORT ).show();
+                //volta para a página inicial
                 retornaHome();
             }
         } else {
@@ -381,16 +429,20 @@ public class Pag_inicial extends AppCompatActivity {
         }
     }
 
+    //salva os dados em si
     private boolean salvarDados(String coima, String pontos, String inib) {
         boolean contador = true; int idTa = -1;
         for (int i = 0; i < bebidas.length-1; i++) {
+            //obtem o id da bebida e do copo
             int idBebida = new DataBase(this).obtemIDBebida(listaBebida.get(bebidas[i][0]).getTipo(), bebidas[i][4]);
             int idCopo = new DataBase(this).obtemIDCopo(listaCopo.get(bebidas[i][1]).getTipo(), bebidas[i][2]);
 
+            //se o id da bebida for diferente de -1
             if (idBebida == -1) {
                 idBebida = new DataBase(this).adicionaBebidaCalc(listaBebida.get(bebidas[i][0]).getTipo(), bebidas[i][4]);
             }
 
+            //se o id do copo for diferente de -1
             if (idCopo == -1) {
                 idCopo = new DataBase(this).adicionaCopoCalc(listaCopo.get(bebidas[i][1]).getTipo(), bebidas[i][2]);
             }
@@ -398,6 +450,7 @@ public class Pag_inicial extends AppCompatActivity {
             Log.i("id bebida", ""+idBebida);
             Log.i("id copo", ""+idCopo);
 
+            //se não houver erro
             if (contador) {
                 contador = false;
                 SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -405,6 +458,7 @@ public class Pag_inicial extends AppCompatActivity {
                 idTa = new DataBase(this).adicionaTA(perfilActivo.getId(), formatter.format(date), taxaTotal, coima, pontos, inib);
             }
 
+            //adiciona o teste à base de dados
             if (idCopo != -1 && idBebida != -1 && idTa != -1) {
                 if (new DataBase(this).adicionaTABC(idTa, idBebida, bebidas[i][5], idCopo, bebidas[i][3]) == -1) {
                     return false;
@@ -416,21 +470,14 @@ public class Pag_inicial extends AppCompatActivity {
         return true;
     }
 
+    //volta a casa!
     private void retornaHome() {
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            if (fragment instanceof BebidaFragment && fragment != null) {
-                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-            }
-        }
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            if (fragment instanceof FinalizarFragment && fragment != null) {
-                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-            }
-        }
+        removeFrag();
         Fragment selectedFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
     }
 
+    //vai calcular o teste consoante os dados do utilizador
     private boolean calculaPassouTeste() {
         Pessoa p = new DataBase(this).listaPerfilActivo();
         try {

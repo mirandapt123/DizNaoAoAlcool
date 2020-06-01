@@ -88,6 +88,7 @@ public class DataBase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //verificar a quantidade de perfis
     public boolean quantidadePerfil() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT count(*) FROM "+TABLE_PESSOA, null);
@@ -107,6 +108,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
+    //lista as bebidas genéricas
     public List<Bebida> listaBebidas() {
         List<Bebida> bebidas = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -122,6 +124,7 @@ public class DataBase extends SQLiteOpenHelper {
         return bebidas;
     }
 
+    //lista as bebidas/copos detalhadamente de um teste
     public List<BA_TA> listaBebidaCopo(int ta_id) {
         List<BA_TA> bebicopo = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -140,6 +143,7 @@ public class DataBase extends SQLiteOpenHelper {
         return bebicopo;
     }
 
+    //obtem todos os testes consoante a ordem
     public List<TA> obtemTA(int idp, String order) {
         List<TA> ta = new ArrayList<>();
         int contador = 0;
@@ -161,6 +165,7 @@ public class DataBase extends SQLiteOpenHelper {
             return ta;
     }
 
+    //lista os copos genéricos
     public List<Copo> listaCopos() {
         List<Copo> copos = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -176,6 +181,7 @@ public class DataBase extends SQLiteOpenHelper {
         return copos;
     }
 
+    //insere uma bebida genérica
     public boolean insereBebidaGenerica(Bebida b) {
         SQLiteDatabase db;
 
@@ -198,6 +204,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
+    //insere um copo genérico
     public boolean insereCopoGenerico(Copo c) {
         SQLiteDatabase db;
 
@@ -220,6 +227,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
+    //insere um teste
     public int adicionaTA(int id, String data, double taxa, String coima, String pontos, String inib) {
         SQLiteDatabase db;
 
@@ -246,6 +254,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
+    // faz update à quantidade de um teste
     public boolean update(int idTA, int quantidade) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE "+TABLE_BEBIDA_TA+" SET BTA_QUANT = BTA_QUANT + "+quantidade+" WHERE TA_ID = "+idTA);
@@ -253,6 +262,7 @@ public class DataBase extends SQLiteOpenHelper {
         return false;
     }
 
+    //verifica se já existe uma bebida assim no teste
     private boolean verificatipos (int idBebida, int idCopo, int idTA, int quantidade) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT count(*) FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID ="+idTA+" AND B_ID = "+idBebida+" AND C_ID = "+idCopo, null);
@@ -269,6 +279,7 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
 
+    //adiciona a bebida de um teste
     public int adicionaTABC(int idTA, int idBebida, int jejum, int idCopo, int quant) {
        if (verificatipos(idBebida, idCopo, idTA, quant)) {
             SQLiteDatabase db;
@@ -298,6 +309,7 @@ public class DataBase extends SQLiteOpenHelper {
        }
     }
 
+    //obtem o id do ultimo teste
     private int obtemLastIDTA() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_TESTE_ALCOOLEMIA+ " Order by TA_ID DESC", null);
@@ -310,6 +322,7 @@ public class DataBase extends SQLiteOpenHelper {
         return -1;
     }
 
+    // obtem a quantidade de um teste com aquela bebida e copo
     public int obtemQuantidade(int ta_id, int b_id, int c_id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT BTA_QUANT FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+" AND B_ID = "+b_id+" AND C_ID = "+c_id, null);
@@ -322,6 +335,7 @@ public class DataBase extends SQLiteOpenHelper {
         return 1;
     }
 
+    //adiciona um copo
     public int adicionaCopoCalc(String tipo, int volume) {
         SQLiteDatabase db;
 
@@ -344,6 +358,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
+    //obtem o ultimo id do copo adicionado
     private int obtemLastIDCopo() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_COPO+ " Order by C_ID DESC", null);
@@ -356,6 +371,7 @@ public class DataBase extends SQLiteOpenHelper {
         return -1;
     }
 
+    //adiciona uma bebida
     public int adicionaBebidaCalc(String tipo, int graduacao) {
         SQLiteDatabase db;
 
@@ -378,6 +394,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
+    //obtem o id da ultima bebida adicionada
     private int obtemLastIDBebida() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_BEBIDA+" Order by B_ID DESC", null);
@@ -390,6 +407,7 @@ public class DataBase extends SQLiteOpenHelper {
         return -1;
     }
 
+    //insere um pessoa
     public boolean inserirPessoa(Pessoa p) {
         SQLiteDatabase db;
 
@@ -417,6 +435,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
+    //verifica uma bebida existe
     public boolean verificaBebida() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT count(*) FROM "+TABLE_BEBIDA, null);
@@ -435,6 +454,7 @@ public class DataBase extends SQLiteOpenHelper {
         return false;
     }
 
+    //verifica se um copo existe
     public boolean verificaCopo() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT count(*) FROM "+TABLE_COPO, null);
@@ -453,6 +473,7 @@ public class DataBase extends SQLiteOpenHelper {
         return false;
     }
 
+    //lista um perfil activo
     public Pessoa listaPerfilActivo() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_PESSOA+" WHERE P_ACTIVO = 1", null);
@@ -475,6 +496,7 @@ public class DataBase extends SQLiteOpenHelper {
         return null;
     }
 
+    //obtem o id de uma bebida com estes parametros
     public int obtemIDBebida(String tipo, int graduacao) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -488,6 +510,7 @@ public class DataBase extends SQLiteOpenHelper {
         return -1;
     }
 
+    //obtem o id de um copo com estes parametros
     public int obtemIDCopo(String tipo, int volume) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -501,6 +524,7 @@ public class DataBase extends SQLiteOpenHelper {
         return -1;
     }
 
+    //apaga o histórico
     public void deleteHistory() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_BEBIDA_TA+";");
@@ -508,6 +532,7 @@ public class DataBase extends SQLiteOpenHelper {
         db.close();
     }
 
+    //apaga um teste
     public void delete1History(int ta_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+";");

@@ -44,11 +44,12 @@ public class TaFragment extends Fragment {
     public TaFragment() {
     }
 
+    //primeiro = saber quem é primeiro e último | tipoOrder = saber tipo de ordenação
     public TaFragment(TA ta, int primeiro, int tipoOrder) {
         this.ta = ta;
         this.primeiro = primeiro;
         this.tipoOrdenacao = tipoOrder;
-        Log.i("mais um criado","fragmento, ciclo infinito");
+        Log.i("mais um criado",":))))");
     }
 
     @Override
@@ -58,7 +59,9 @@ public class TaFragment extends Fragment {
         final View inf = inflater.inflate(R.layout.fragment_historico, container, false);
         TextView data = inf.findViewById(R.id.data_teste);
         data.setText("Teste realizado na data: "+ta.getData());
+        //não há itens no histórico
         if (primeiro == -1) {
+            //elimina o desnecessário ao fragmento. Deveria estar numa função (s/tempo)
             TableRow eliminar = inf.findViewById(R.id.eliminar_11);
             eliminar.setVisibility(View.GONE);
             eliminar = inf.findViewById(R.id.eliminar_ordenar);
@@ -134,6 +137,7 @@ public class TaFragment extends Fragment {
                 calculaTipo(tipoContra);
             }
 
+            // se for o primeiro
             if (primeiro == 0) {
                 TextView msg = inf.findViewById(R.id.txt_Historico2);
                 msg.setText("Histórico:");
@@ -147,6 +151,7 @@ public class TaFragment extends Fragment {
                     }
                 });
 
+                // spinner para ordenar
                 Spinner dropdown = inf.findViewById(R.id.spinner_ordenar);
                 String[] items = new String [4];
                 items[0] = "Ordenar por data ASC";
@@ -161,6 +166,7 @@ public class TaFragment extends Fragment {
 
                 dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
+                    //ao selecionar o item e se não for o mesmo do início, vai ordenar consoante o pedido
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                         if(position != tipoOrdenacao)
                             refreshActivity(position);
@@ -184,6 +190,7 @@ public class TaFragment extends Fragment {
             }
         }
 
+        //evento no botão de apagar um teste
         Button btn = (Button) inf.findViewById(R.id.apagart);
         btn.setOnClickListener( new View.OnClickListener() {
 
@@ -194,6 +201,7 @@ public class TaFragment extends Fragment {
             }
         });
 
+        //evento no botão de mostrar mais detalhes
         btn = (Button) inf.findViewById(R.id.ver_mais1);
         btn.setOnClickListener( new View.OnClickListener() {
 
@@ -207,7 +215,7 @@ public class TaFragment extends Fragment {
         return inf;
     }
 
-    //Calcula se o condutor passou no teste de alcoolémia
+    //Calcula se o condutor passou no teste, se está a usar a aplicação é provável que não passe :)
     private boolean calculaPassouTeste(Pessoa p) {
 
         try {

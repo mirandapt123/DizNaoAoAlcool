@@ -93,15 +93,26 @@
             android:background="#FFFFFF"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/resultado1"
+            <TableLayout
                 android:layout_width="389dp"
-                android:layout_height="100dp"
-                android:background="#DDD0D0"
-                android:gravity="center"
-                android:text="XXX g/l"
-                android:textColor="#0E0E0E"
-                android:textSize="60sp" />
+                android:layout_height="100dp">
+
+                <TableRow
+                    android:layout_width="389dp"
+                    android:layout_height="100dp" >
+
+                    <TextView
+                        android:id="@+id/resultado1"
+                        android:layout_width="389dp"
+                        android:layout_height="100dp"
+                        android:background="#DDD0D0"
+                        android:gravity="center"
+                        android:text="XXX g/l"
+                        android:textColor="#0E0E0E"
+                        android:textSize="60sp" />
+                </TableRow>
+
+            </TableLayout>
 
         </TableRow>
 
