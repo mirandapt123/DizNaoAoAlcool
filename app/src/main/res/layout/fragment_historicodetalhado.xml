@@ -214,18 +214,6 @@
                 </TableLayout>
 
             </TableRow>
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#eee"
-                android:minHeight="35dp">
-
-                <CheckBox
-                    android:id="@+id/jejum1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Selecione se tomou em jejum" />
-            </TableRow>
 
             <TableRow
                 android:id="@+id/apag_2"

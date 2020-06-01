@@ -1,6 +1,7 @@
 package com.example.diznaoaoalcool;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,9 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import java.text.DecimalFormat;
@@ -26,9 +29,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
     private int primeiro;
     private int quantidade;
     private double resultado;
-    private boolean jejum;
-    private Bebida bebida;
-    private Copo copo;
+    private BA_TA bc;
 
 
 
@@ -37,14 +38,12 @@ public class HistoricoDetalhadoFragment extends Fragment {
     public HistoricoDetalhadoFragment() {
     }
 
-    public HistoricoDetalhadoFragment(int ta_id, double resultado, Bebida ba, Copo cp, int primeiro, int quantidade, boolean jejum) {
+    public HistoricoDetalhadoFragment(int ta_id, double resultado, BA_TA bc, int primeiro, int quantidade) {
         this.ta_id = ta_id;
         this.resultado = resultado;
-        this.bebida = ba;
-        this.copo = cp;
+        this.bc = bc;
         this.primeiro = primeiro;
         this.quantidade = quantidade;
-        this.jejum = jejum;
     }
 
     @Override
@@ -67,7 +66,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
 
         int posicao = 0;
         for (int i=0 ; i < listaBebidas.size(); i++) {
-            if (items[i].equalsIgnoreCase(bebida.getTipo())) {
+            if (items[i].equalsIgnoreCase(bc.getB_tipo())) {
                 posicao = i;
             }
         }
@@ -86,7 +85,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
         dropdown.setAdapter(adapter);
 
         for (int i=0 ; i < listaCopos.size(); i++) {
-            if (items[i].equalsIgnoreCase(copo.getTipo())) {
+            if (items[i].equalsIgnoreCase(bc.getC_tipo())) {
                 posicao = i;
             }
         }
@@ -95,29 +94,22 @@ public class HistoricoDetalhadoFragment extends Fragment {
         dropdown.setEnabled(false);
 
         SeekBar graduacaoSeek = inf.findViewById(R.id.graduacao1);
-        graduacaoSeek.setProgress(bebida.getGraduacao());
+        graduacaoSeek.setProgress(bc.getGraduacao());
         graduacaoSeek.setEnabled(false);
         TextView txtV_graduacao = inf.findViewById(R.id.grad_int);
-        txtV_graduacao.setText(""+bebida.getGraduacao()+" %");
+        txtV_graduacao.setText(""+bc.getGraduacao()+" %");
 
         SeekBar volumeSeek = inf.findViewById(R.id.volume_consumido1);
-        volumeSeek.setProgress(copo.getVolume());
+        volumeSeek.setProgress(bc.getVolume());
         volumeSeek.setEnabled(false);
         TextView txtV_volume = inf.findViewById(R.id.volume_int);
-        txtV_volume.setText(""+copo.getVolume()+" ml");
+        txtV_volume.setText(""+bc.getVolume()+" ml");
 
         SeekBar quantSeek = inf.findViewById(R.id.quantidade1);
         quantSeek.setProgress(quantidade);
         quantSeek.setEnabled(false);
         TextView txtV_quantidade = inf.findViewById(R.id.quant_int);
         txtV_quantidade.setText(quantidade + " copo(s)");
-
-        CheckBox jejum_check = inf.findViewById(R.id.jejum1);
-
-        if (jejum)
-            jejum_check.setChecked(true);
-
-        jejum_check.setEnabled(false);
 
         if (primeiro == 1) {
             TableRow eliminar = inf.findViewById(R.id.apag_2);
@@ -141,6 +133,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
+                    eliminarHistorico("Tem a certeza que deseja apagar este teste?", ta_id);
                 }
             });
         } else {
@@ -153,6 +146,39 @@ public class HistoricoDetalhadoFragment extends Fragment {
         }
 
         return inf;
+    }
+
+    //elimina o teste selecionado
+    private void eliminarHistorico(String msg, final int idTa) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Pim Pam Pum");
+        builder.setMessage(msg);
+        builder.setIcon(R.drawable.ic_history);
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+
+                new DataBase(getContext()).delete1History(idTa);
+                Toast.makeText( getContext(), "O teste foi eliminado do histórico com sucesso.", Toast.LENGTH_LONG ).show();
+                refreshActivity(0);
+
+            }
+        });
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    //'diz' à aplicação inicial para remover todos os fragmentos e voltar a fazer o método inicial (callback)
+    public void refreshActivity(int posicao){
+        Pag_inicial mDashboardActivity = (Pag_inicial) getActivity();
+        if(mDashboardActivity != null){
+            mDashboardActivity.refreshMyData(posicao);
+        }
     }
 
     protected class MyAdapterSpinner extends ArrayAdapter {

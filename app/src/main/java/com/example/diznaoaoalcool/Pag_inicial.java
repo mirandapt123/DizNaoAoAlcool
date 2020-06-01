@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Pag_inicial extends AppCompatActivity {
     Pessoa perfilActivo;
+    List <BA_TA> listaBebidaCopo;
     List <Bebida> listaBebida;
     List <Copo> listaCopo;
     List <TA> listaTA;
@@ -251,23 +252,19 @@ public class Pag_inicial extends AppCompatActivity {
         // remove os fragmentos
         removeFrag();
         // obtem bebidas, copos, resultado, jejum e quantidade da db
-        listaBebida = new DataBase(this).listaBebidasDetalhe(ta_id);
-        listaCopo = new DataBase(this).listaCoposDetalhe(ta_id);
+        listaBebidaCopo = new DataBase(this).listaBebidaCopo(ta_id);
         Log.i("Detalhes:", "TA_ID: "+ta_id);
-        Log.i("Detalhes:", "N_BEBIDAS:"+listaBebida.size()+" N_COPOS:"+listaCopo.size());
-        if (listaBebida != null && listaCopo != null) {
-            for (int i = 0; i < listaBebida.size(); i++) {
-                int quantidade = new DataBase(this).obtemQuantidade(ta_id, listaBebida.get(i).getId(), listaCopo.get(i).getId());
-                boolean jejum = new DataBase(this).obtemJejum(ta_id, listaBebida.get(i).getId(), listaCopo.get(i).getId());
-                Log.i("Detalhes:", "B_ID:"+listaBebida.get(i).getId()+" C_ID:"+listaCopo.get(i).getId());
-                if (i == listaBebida.size() -1) {
-                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebida.get(i), listaCopo.get(i), 0, quantidade, jejum);
+        if (listaBebidaCopo != null) {
+            for (int i = 0; i < listaBebidaCopo.size(); i++) {
+                int quantidade = new DataBase(this).obtemQuantidade(ta_id, listaBebidaCopo.get(i).getId_b(), listaBebidaCopo.get(i).getId_c());
+                if (i == listaBebidaCopo.size() -1) {
+                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebidaCopo.get(i), 0, quantidade);
                     getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
                 } else if (i == 0) {
-                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebida.get(i), listaCopo.get(i), 1, quantidade, jejum);
+                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebidaCopo.get(i), 1, quantidade);
                     getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
                 } else {
-                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebida.get(i), listaCopo.get(i), -1, quantidade, jejum);
+                    HistoricoDetalhadoFragment aFragment = new HistoricoDetalhadoFragment(ta_id, resultado, listaBebidaCopo.get(i), -1, quantidade);
                     getSupportFragmentManager().beginTransaction().add(R.id.tabelaHistorico, aFragment).commit();
                 }
             }

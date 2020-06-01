@@ -27,6 +27,7 @@
                 android:textAlignment="center"
                 android:textColor="#491010"
                 android:textSize="30sp" />
+
         </TableRow>
 
         <TableRow
@@ -36,7 +37,7 @@
 
             <Spinner
                 android:id="@+id/spinner_ordenar"
-                android:layout_width="353dp"
+                android:layout_width="387dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:background="@android:drawable/btn_dropdown"
@@ -51,11 +52,12 @@
 
             <Button
                 android:id="@+id/btn_clearall"
-                android:layout_width="200dp"
+                android:layout_width="389dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#500202"
                 android:text="Limpar histórico"
                 android:textColor="#FFFFFF" />
+
         </TableRow>
 
         <TableRow
@@ -86,15 +88,16 @@
 
         <TableRow
             android:id="@+id/e_2"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#DDD0D0"
+            android:background="#FFFFFF"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/resultado1"
-                android:layout_width="300dp"
+                android:layout_width="389dp"
                 android:layout_height="100dp"
+                android:background="#DDD0D0"
                 android:gravity="center"
                 android:text="XXX g/l"
                 android:textColor="#0E0E0E"
@@ -150,13 +153,14 @@
             android:id="@+id/eliminar_33"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E12C2C"
+            android:background="#FFFFFF"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/multa_dinheiro1"
-                android:layout_width="match_parent"
+                android:layout_width="389dp"
                 android:layout_height="match_parent"
+                android:background="#E12C2C"
                 android:text="X€ de coima máxima."
                 android:textAlignment="center"
                 android:textColor="#FBFBFB"
@@ -168,13 +172,14 @@
             android:id="@+id/eliminar_55"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E12C2C"
+            android:background="#FFFDFD"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/pontos1"
-                android:layout_width="match_parent"
+                android:layout_width="389dp"
                 android:layout_height="match_parent"
+                android:background="#E12C2C"
                 android:text="Perda de X pontos."
                 android:textAlignment="center"
                 android:textColor="#FBFBFB"
@@ -186,13 +191,14 @@
             android:id="@+id/eliminar_77"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E12C2C"
+            android:background="#FFFFFF"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/inibicao1"
-                android:layout_width="match_parent"
+                android:layout_width="389dp"
                 android:layout_height="match_parent"
+                android:background="#E12C2C"
                 android:text="Até X meses sem carta."
                 android:textAlignment="center"
                 android:textColor="#FBFBFB"
@@ -204,13 +210,14 @@
             android:id="@+id/eliminar_99"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E12C2C"
+            android:background="#FFFFFF"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/tipoContra1"
-                android:layout_width="match_parent"
+                android:layout_width="389dp"
                 android:layout_height="match_parent"
+                android:background="#E12C2C"
                 android:text="Contraordenação X"
                 android:textAlignment="center"
                 android:textColor="#FBFBFB"
@@ -226,7 +233,7 @@
 
             <Button
                 android:id="@+id/ver_mais1"
-                android:layout_width="match_parent"
+                android:layout_width="389dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000949"
                 android:text="Ver mais detalhes"
@@ -241,11 +248,12 @@
 
             <Button
                 android:id="@+id/apagart"
-                android:layout_width="match_parent"
+                android:layout_width="389dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#910101"
                 android:text="Clique para apagar este teste"
                 android:textColor="#FFFFFF" />
+
         </TableRow>
 
         <TableRow

@@ -122,34 +122,19 @@ public class DataBase extends SQLiteOpenHelper {
         return bebidas;
     }
 
-    public List<Bebida> listaBebidasDetalhe(int ta_id) {
-        List<Bebida> bebidas = new ArrayList<>();
+    public List<BA_TA> listaBebidaCopo(int ta_id) {
+        List<BA_TA> bebicopo = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM BEBIDA WHERE B_ID IN (SELECT B_ID FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+")", null);
+        Cursor c = db.rawQuery("SELECT * FROM BEBIDA, COPO WHERE B_ID IN (SELECT B_ID FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+") AND C_ID IN (SELECT C_ID FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+")", null);
         if (c.moveToFirst()){
             do {
-                Bebida bebida = new Bebida(c.getInt(0), c.getString(1), c.getInt(2));
-                bebidas.add(bebida);
+                BA_TA bc = new BA_TA(c.getInt(0), c.getString(1), c.getInt(2), c.getInt(3), c.getString(4), c.getInt(5));
+                bebicopo.add(bc);
             } while(c.moveToNext());
         }
         c.close();
         db.close();
-        return bebidas;
-    }
-
-    public List<Copo> listaCoposDetalhe(int ta_id) {
-        List<Copo> copos = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM COPO WHERE C_ID IN (SELECT C_ID FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+")", null);
-        if (c.moveToFirst()){
-            do {
-                Copo copo = new Copo(c.getInt(0), c.getString(1), c.getInt(2));
-                copos.add(copo);
-            } while(c.moveToNext());
-        }
-        c.close();
-        db.close();
-        return copos;
+        return bebicopo;
     }
 
     public List<TA> obtemTA(int idp, String order) {
@@ -259,25 +244,21 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     public boolean update(int idTA, int quantidade) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE "+TABLE_BEBIDA_TA+" SET BTA_QUANT = BTA_QUANT + "+quantidade+" WHERE TA_ID = "+idTA);
         return false;
     }
 
-    private boolean verificatipos (int idBebida, int idCopo, int idTA, int quantidade, int jejum) {
-        Log.i("Detalhes:", "Jejum: "+jejum);
+    private boolean verificatipos (int idBebida, int idCopo, int idTA, int quantidade) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT count(*) FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID ="+idTA+" AND B_ID = "+idBebida+" AND C_ID = "+idCopo+" AND BTA_JEJUM = " + jejum, null);
+        Cursor c = db.rawQuery("SELECT count(*) FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID ="+idTA+" AND B_ID = "+idBebida+" AND C_ID = "+idCopo, null);
         if (c.moveToFirst()){
-
             if (c.getInt(0) == 0) {
                 return true;
             } else {
                 return update(idTA, quantidade);
             }
-
         } while(c.moveToNext());
-
         c.close();
         db.close();
         return false;
@@ -285,7 +266,7 @@ public class DataBase extends SQLiteOpenHelper {
 
 
     public int adicionaTABC(int idTA, int idBebida, int jejum, int idCopo, int quant) {
-       if (verificatipos(idBebida, idCopo, idTA, quant, jejum)) {
+       if (verificatipos(idBebida, idCopo, idTA, quant)) {
             SQLiteDatabase db;
 
             db = this.getWritableDatabase();
@@ -308,9 +289,9 @@ public class DataBase extends SQLiteOpenHelper {
             } else {
                 return 1;
             }
-        } else {
+       } else {
             return 1;
-        }
+       }
     }
 
     private int obtemLastIDTA() {
@@ -335,22 +316,6 @@ public class DataBase extends SQLiteOpenHelper {
         c.close();
         db.close();
         return 1;
-    }
-
-    public boolean obtemJejum(int ta_id, int b_id, int c_id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT BTA_JEJUM FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+" AND B_ID = "+b_id+" AND C_ID = "+c_id, null);
-        if (c.moveToFirst()){
-            if (c.getInt(0) == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        } while(c.moveToNext());
-
-        c.close();
-        db.close();
-        return false;
     }
 
     public int adicionaCopoCalc(String tipo, int volume) {
