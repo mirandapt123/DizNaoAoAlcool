@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, NoProfile.class));
         } else {
             startActivity(new Intent(MainActivity.this, Pag_inicial.class));
+            Toast.makeText( this, "Bem-vindo, "+new DataBase(this).listaPerfilActivo().getNome()+".", Toast.LENGTH_SHORT ).show();
         }
         return true;
     }

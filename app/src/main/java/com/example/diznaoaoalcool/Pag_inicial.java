@@ -55,7 +55,6 @@ public class Pag_inicial extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         perfilActivo = perfilActivo();
-        Toast.makeText( this, "Bem-vindo, "+perfilActivo.getNome()+".", Toast.LENGTH_SHORT ).show();
 
         insereBebida();
         listaBebida = new DataBase(this).listaBebidas();
