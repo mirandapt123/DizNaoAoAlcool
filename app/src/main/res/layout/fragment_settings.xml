@@ -1,63 +1,311 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="688dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginBottom="5dp">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="166dp"
-            android:layout_height="74dp"
-            android:layout_marginTop="54dp"
-            android:layout_marginBottom="54dp"
-            android:text="Editar Perfil"
-            app:layout_constraintBottom_toTopOf="@+id/button3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="166dp"
-            android:layout_height="74dp"
-            android:layout_marginTop="54dp"
-            android:layout_marginBottom="54dp"
-            android:text="Alterar Perfil"
-            app:layout_constraintBottom_toTopOf="@+id/button4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="166dp"
-            android:layout_height="74dp"
-            android:layout_marginTop="54dp"
-            android:layout_marginBottom="300dp"
-            android:text="Adicionar Perfil"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="220dp"
-            android:layout_marginBottom="64dp"
-            android:text="Definições"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="406dp"
+                            android:layout_height="wrap_content"
+                            android:text="Definições"
+                            android:textAlignment="center"
+                            android:textColor="#4A0606"
+                            android:textSize="24sp" />
+                    </TableRow>
+
+                </TableLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/space_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txt_perfil_actual"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Perfil actual:"
+                            android:textColor="#125C97"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:text=" José Miranda (Peso x | Idade y)"
+                            android:textColor="#090909"
+                            android:textSize="18sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </TableRow>
+
+                </TableLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/space_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="151dp"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:id="@+id/btn_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#145A55"
+                            android:text="Editar perfil"
+                            android:textColor="#FDFDFD" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/space_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txt_change_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Perfil selecionado: "
+                            android:textColor="#472525"
+                            android:textSize="18sp" />
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="249dp"
+                            android:layout_height="wrap_content" />
+                    </TableRow>
+
+                </TableLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/space_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="151dp"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:id="@+id/btn_change_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#B58080"
+                            android:text="Mudar perfil" />
+                    </TableRow>
+
+                </TableLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/space_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            android:layout_width="151dp"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:id="@+id/btn_create_profile"
+                            android:layout_width="121dp"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#C61CE1C3"
+                            android:text="Criar perfil" />
+                    </TableRow>
+
+                </TableLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/space_6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="70dp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txt_melhores"
+                            android:layout_width="396dp"
+                            android:layout_height="wrap_content"
+                            android:text="Criado por: Joel Costa e José Miranda | Um agradecimento especial ao Sport Lisboa e Benfica."
+                            android:textAlignment="center"
+                            android:textColor="#979191"
+                            android:textSize="20sp" />
+                    </TableRow>
+                </TableLayout>
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
 </RelativeLayout>

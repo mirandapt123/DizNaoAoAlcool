@@ -125,9 +125,12 @@ public class DataBase extends SQLiteOpenHelper {
     public List<BA_TA> listaBebidaCopo(int ta_id) {
         List<BA_TA> bebicopo = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM BEBIDA, COPO WHERE B_ID IN (SELECT B_ID FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+") AND C_ID IN (SELECT C_ID FROM "+TABLE_BEBIDA_TA+" WHERE TA_ID = "+ta_id+")", null);
+
+        Cursor c = db.rawQuery("SELECT B.B_ID, B.B_TIPO, B.B_GRADUACAO, C.C_ID, C.C_TIPO, C.C_VOLUME FROM "+TABLE_BEBIDA+" B LEFT JOIN "+TABLE_BEBIDA_TA+" TA ON B.B_ID = TA.B_ID" +
+                                    " LEFT JOIN "+TABLE_COPO+" C ON C.C_ID = TA.C_ID WHERE TA.TA_ID = "+ta_id+" ORDER BY B.B_GRADUACAO DESC", null);
         if (c.moveToFirst()){
             do {
+                Log.i("Teste duplicado", "B_ID: "+ c.getInt(0)+ " C_ID: "+c.getInt(3));
                 BA_TA bc = new BA_TA(c.getInt(0), c.getString(1), c.getInt(2), c.getInt(3), c.getString(4), c.getInt(5));
                 bebicopo.add(bc);
             } while(c.moveToNext());
@@ -246,6 +249,7 @@ public class DataBase extends SQLiteOpenHelper {
     public boolean update(int idTA, int quantidade) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE "+TABLE_BEBIDA_TA+" SET BTA_QUANT = BTA_QUANT + "+quantidade+" WHERE TA_ID = "+idTA);
+        db.close();
         return false;
     }
 

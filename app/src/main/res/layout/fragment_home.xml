@@ -28,20 +28,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <EditText
-                            android:id="@+id/input_quantidade"
-                            android:layout_width="244dp"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Quantas bebidas consumiu?"
-                            android:inputType="number" />
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <Button
-                            android:id="@+id/btn_bora"
-                            android:layout_width="166dp"
-                            android:layout_height="wrap_content"
-                            android:onClick="vamosAIsso"
-                            android:text="Vamos lá a isso" />
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" >
+
+                                <TextView
+                                    android:id="@+id/textView17"
+                                    android:layout_width="93dp"
+                                    android:layout_height="wrap_content" />
+
+                                <EditText
+                                    android:id="@+id/input_quantidade"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ems="10"
+                                    android:hint="Bebidas consumidas"
+                                    android:inputType="number" />
+                            </TableRow>
+
+                        </TableLayout>
 
                     </TableRow>
 
@@ -51,12 +60,43 @@
 
                         <TextView
                             android:id="@+id/erro_home"
-                            android:layout_width="246dp"
+                            android:layout_width="409dp"
                             android:layout_height="wrap_content"
                             android:text="TextView"
+                            android:textAlignment="center"
                             android:textColor="#F44336"
                             android:textSize="17sp"
                             android:visibility="invisible" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/textView14"
+                                    android:layout_width="125dp"
+                                    android:layout_height="wrap_content" />
+
+                                <Button
+                                    android:id="@+id/btn_bora"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="#DDABAB"
+                                    android:onClick="vamosAIsso"
+                                    android:text="Vamos lá a isso" />
+                            </TableRow>
+
+                        </TableLayout>
+
                     </TableRow>
 
                 </TableLayout>

@@ -111,10 +111,6 @@ public class Pag_inicial extends AppCompatActivity {
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                             break;
                         case R.id.nav_history:
-                            /*removeFrag();
-                            selectedFragment = new HistoryFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment, "historico").commit();
-                            mostraHistorico("TA_DATA asc", 0);*/
                             refreshMyData(0);
                             break;
                         case R.id.nav_fines:
