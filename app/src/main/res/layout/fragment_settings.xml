@@ -238,15 +238,15 @@
 
                         <TextView
                             android:id="@+id/textView20"
-                            android:layout_width="151dp"
+                            android:layout_width="154dp"
                             android:layout_height="wrap_content" />
 
                         <Button
-                            android:id="@+id/btn_create_profile"
-                            android:layout_width="121dp"
+                            android:id="@+id/btn_add_profile"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="#C61CE1C3"
-                            android:text="Criar perfil" />
+                            android:text="Criar Perfil" />
+
                     </TableRow>
 
                 </TableLayout>

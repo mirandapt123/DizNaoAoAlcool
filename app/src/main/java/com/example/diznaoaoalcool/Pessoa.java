@@ -3,7 +3,9 @@ package com.example.diznaoaoalcool;
 import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
 
-public class Pessoa {
+import java.io.Serializable;
+
+public class Pessoa implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 

@@ -475,6 +475,39 @@ public class DataBase extends SQLiteOpenHelper {
         return null;
     }
 
+    public List<Pessoa> listaPerfis(){
+        List<Pessoa> pessoas = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM Pessoa", null);
+        if (c.moveToFirst()){
+            do {
+                boolean profissional;
+                boolean activo;
+
+                if(c.getInt(6) == 0){
+                    profissional = false;
+                }else{
+                    profissional = true;
+                }
+
+                if(c.getInt(7) == 0){
+                    activo = false;
+                }else{
+                    activo = true;
+                }
+
+                Pessoa pessoa = new Pessoa(c.getInt(0), c.getString(1),
+                                            c.getInt(2),c.getInt(3),
+                                            c.getInt(4),c.getString(5),
+                                            profissional, activo);
+                pessoas.add(pessoa);
+            } while(c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return pessoas;
+    }
+
     public int obtemIDBebida(String tipo, int graduacao) {
         SQLiteDatabase db = this.getReadableDatabase();
 
