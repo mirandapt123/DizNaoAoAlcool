@@ -38,6 +38,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
     public HistoricoDetalhadoFragment() {
     }
 
+    //saber se é a primeira ou ultima bebida | primeiro = 1, ultimo = 0
     public HistoricoDetalhadoFragment(int ta_id, double resultado, BA_TA bc, int primeiro, int quantidade) {
         this.ta_id = ta_id;
         this.resultado = resultado;
@@ -53,17 +54,22 @@ public class HistoricoDetalhadoFragment extends Fragment {
         final View inf = inflater.inflate(R.layout.fragment_historicodetalhado, container, false);
 
         Spinner dropdown = inf.findViewById(R.id.spinner_bebida1);
+        //obtem a lista de bebidas na base de dados (genéricas)
         final List<Bebida> listaBebidas = new DataBase(getContext()).listaBebidas();
+        //obtem a lista de copos na base de dados (genéricas)
         final List<Copo> listaCopos = new DataBase(getContext()).listaCopos();
+        //coloca as bebidas (genéricas) no spinner
         String[] items= new String[listaBebidas.size()];
         for (int i=0; i < listaBebidas.size(); i++) {
             items[i] = listaBebidas.get(i).getTipo();
         }
 
+        //coloca as imagens para depois associar ao spinner
         Integer [] ClipCodesImage = new Integer[] {R.drawable.cerceja_light, R.drawable.cervejasagres, R.drawable.vinho, R.drawable.cocktail, R.drawable.shot, R.drawable.whisky, R.drawable.pontointerr};
         MyAdapterSpinner adapter = new MyAdapterSpinner(getContext(), R.layout.item_custom, items, ClipCodesImage);
         dropdown.setAdapter(adapter);
 
+        //verifica em qual posição está a bebida do teste
         int posicao = 0;
         for (int i=0 ; i < listaBebidas.size(); i++) {
             if (items[i].equalsIgnoreCase(bc.getB_tipo())) {
@@ -71,9 +77,11 @@ public class HistoricoDetalhadoFragment extends Fragment {
             }
         }
 
+        //coloca o spinner com a bebida do teste seleciona e retira os eventos ao mesmo (disable)
         dropdown.setSelection(posicao);
         dropdown.setEnabled(false);
 
+        //faz exactamente o mesmo, mas para os copos
         dropdown = inf.findViewById(R.id.spinner_copo1);
         items= new String[listaCopos.size()];
         for (int i=0; i < listaCopos.size(); i++) {
@@ -93,29 +101,34 @@ public class HistoricoDetalhadoFragment extends Fragment {
         dropdown.setSelection(posicao);
         dropdown.setEnabled(false);
 
+        // coloca a graduação da bebida do teste e coloca disabled
         SeekBar graduacaoSeek = inf.findViewById(R.id.graduacao1);
         graduacaoSeek.setProgress(bc.getGraduacao());
         graduacaoSeek.setEnabled(false);
         TextView txtV_graduacao = inf.findViewById(R.id.grad_int);
         txtV_graduacao.setText(""+bc.getGraduacao()+" %");
 
+        // coloca o volume que do copo do teste e coloca disabled
         SeekBar volumeSeek = inf.findViewById(R.id.volume_consumido1);
         volumeSeek.setProgress(bc.getVolume());
         volumeSeek.setEnabled(false);
         TextView txtV_volume = inf.findViewById(R.id.volume_int);
         txtV_volume.setText(""+bc.getVolume()+" ml");
 
+        // coloca a quantidade e coloca disabled
         SeekBar quantSeek = inf.findViewById(R.id.quantidade1);
         quantSeek.setProgress(quantidade);
         quantSeek.setEnabled(false);
         TextView txtV_quantidade = inf.findViewById(R.id.quant_int);
         txtV_quantidade.setText(quantidade + " copo(s)");
 
+        //Se for primeiro
         if (primeiro == 1) {
             TableRow eliminar = inf.findViewById(R.id.apag_2);
             eliminar.setVisibility(View.GONE);
             eliminar = inf.findViewById(R.id.apag_3);
             eliminar.setVisibility(View.GONE);
+        //Se for último
         } else if (primeiro == 0){
             TableRow eliminar = inf.findViewById(R.id.apag_1);
             eliminar.setVisibility(View.GONE);
@@ -128,6 +141,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
                 resultado_txt.setText("Resultado: "+f.format(resultado)+ " g/l.");
             }
 
+            //evento para apagar o teste
             Button apagarTeste = (Button) inf.findViewById(R.id.btn_eliminar);
             apagarTeste.setOnClickListener( new View.OnClickListener() {
 
@@ -136,6 +150,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
                     eliminarHistorico("Tem a certeza que deseja apagar este teste?", ta_id);
                 }
             });
+        // Se não for nenhum
         } else {
             TableRow eliminar = inf.findViewById(R.id.apag_1);
             eliminar.setVisibility(View.GONE);
@@ -181,6 +196,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
         }
     }
 
+    //coloca o spinner costumizado com imagem ao lado | classe tirada da internet :)
     protected class MyAdapterSpinner extends ArrayAdapter {
 
         Integer[] Image;
@@ -196,7 +212,7 @@ public class HistoricoDetalhadoFragment extends Fragment {
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate(R.layout.item_custom, parent, false);
 
-            //Set Custom View
+            //Coloca a custom view no spiiner
             TextView tv = (TextView)view.findViewById(R.id.textView);
             ImageView img = (ImageView) view.findViewById(R.id.imageView);
 

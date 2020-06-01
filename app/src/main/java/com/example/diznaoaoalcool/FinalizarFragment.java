@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -31,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 public class FinalizarFragment extends Fragment {
 
     private boolean passou;
+    private int coima;
 
 
     private static View inf;
@@ -38,15 +40,19 @@ public class FinalizarFragment extends Fragment {
     public FinalizarFragment() {
     }
 
-    public FinalizarFragment(boolean passou) {
+    //constructor onde podemos saber se é uma coima e se passou
+    public FinalizarFragment(boolean passou, int coima) {
         this.passou = passou;
+        this.coima = coima;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //obtem a view para modificar os componentos do fragmento
         final View inf = inflater.inflate(R.layout.fragment_finalizar, container, false);
+        //formatar o resultado em 2 casas decimais
         DecimalFormat f = new DecimalFormat("##.00");
 
         if (passou) {
@@ -60,6 +66,7 @@ public class FinalizarFragment extends Fragment {
             TextView msg = inf.findViewById(R.id.passouNao);
             msg.setText("Passou no teste! Pode conduzir (com juízo).");
             msg.setTextColor(Color.rgb(0,128,0));
+
             //eliminar o que não é preciso, pois passou
             TableRow eliminar = inf.findViewById(R.id.eliminar_1);
             eliminar.setVisibility(View.GONE);
@@ -89,9 +96,34 @@ public class FinalizarFragment extends Fragment {
             TextView pontos = inf.findViewById(R.id.pontos);
             TextView inibicao = inf.findViewById(R.id.inibicao);
             TextView tipoContra = inf.findViewById(R.id.tipoContra);
+            //calcula as coimas /grave, mt grave ou crime
             calculaCoimas(multa, pontos, inibicao, tipoContra);
         }
 
+        //se for calcular uma coima, mudamos o comportamento do botão para ir para o menu das coimas e retiramos
+        //o que não é necessário aka guardar
+        if (coima == 1) {
+            CheckBox chk = inf.findViewById(R.id.save_ceck);
+            chk.setVisibility(View.GONE);
+            TableRow eliminar = inf.findViewById(R.id.eliminar_100);
+            eliminar.setVisibility(View.GONE);
+            Button voltaCoima = inf.findViewById(R.id.ver_mais);
+            voltaCoima.setText("Voltar ao menu das coimas");
+            TextView msg = inf.findViewById(R.id.data_teste);
+            msg.setText("Álcool presente no sangue:");
+
+            //evento do botão voltar se for coima
+            voltaCoima.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Pag_inicial mDashboardActivity = (Pag_inicial) getActivity();
+                    if(mDashboardActivity != null){
+                        mDashboardActivity.voltaMenu();
+                    }
+                }
+            });
+        }
+
+        //retorno da view
         return inf;
     }
 
@@ -99,6 +131,7 @@ public class FinalizarFragment extends Fragment {
 
     }
 
+    //Vai calcular as coimas consoante a gravidade
     private void calculaCoimas(TextView multa, TextView pontos, TextView inibicao, TextView tipoContra) {
         Pessoa p = new DataBase(getContext()).listaPerfilActivo();
         try {

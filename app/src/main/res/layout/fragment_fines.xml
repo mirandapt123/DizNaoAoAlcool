@@ -11,12 +11,12 @@
         android:layout_marginBottom="5dp">
 
         <TableLayout
-            android:id="@+id/tabelaBebidas"
+            android:id="@+id/tabelaCoimas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TableRow
-                android:id="@+id/linhaQuant"
+                android:id="@+id/linhaQuant1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
