@@ -61,7 +61,7 @@ public class SettingsFragment extends Fragment {
     // carrega para a página o perfil ativo de momento
     private void loadActiveProfile(View inf, Pessoa pessoa){
         TextView texto = inf.findViewById(R.id.textView16);
-        texto.setText("  " + pessoa.getNome() + " (Peso: " + pessoa.getPeso() + " | " + "Idade: " + pessoa.getIdade() + ")");
+        texto.setText("  " + pessoa.getNome());
     }
 
     // cria no spinner a lista de todos os perfis
