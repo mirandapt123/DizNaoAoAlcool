@@ -103,7 +103,7 @@ public class Pag_inicial extends AppCompatActivity {
             new DataBase(this).insereCopoGenerico(new Copo(-1, "Copo de Vinho", 340));
             new DataBase(this).insereCopoGenerico(new Copo(-1, "Caneca de Cerveja", 600));
             new DataBase(this).insereCopoGenerico(new Copo(-1, "Outro copo", 700));
-            Log.i("Copos genéricos", "Foram inseridas na db.");
+            Log.i("Copos genéricos", "Foram inseridos na db.");
         } else {
             Log.i("Copos genéricos", "Não foram inseridos, já existem na db.");
         }
@@ -228,7 +228,6 @@ public class Pag_inicial extends AppCompatActivity {
             msg_erro.setText("Tem de digitar alguma coisa.");
             msg_erro.setVisibility(View.VISIBLE);
         }
-
     }
 
     //coloca as bebidas, consoante a quantidade colocada pelo utilizador
@@ -352,7 +351,7 @@ public class Pag_inicial extends AppCompatActivity {
                 bebidas [j][3] = quantidade;
                 bebidas [j][4] = graduacao;
                 //se a graduação for maior que 0
-                if (graduacao != 0) {
+                if (graduacao > 0) {
                     //verifica as gramas que tem a bebida (alcool)
                     double gramasAlcool =  (graduacao * 0.01) * volume * quantidade;
                     double coeficiente = 0;

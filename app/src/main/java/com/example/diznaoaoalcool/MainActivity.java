@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
     }
 
-    //verifica se existe um perfil activo na aplicação
+    //verifica se existe um perfil ativo na aplicação
     private boolean existeUserLigado() {
         if (new DataBase(this).quantidadePerfil() != 0) {
             return true;

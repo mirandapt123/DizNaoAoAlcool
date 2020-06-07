@@ -30,7 +30,8 @@ public class Pessoa implements Serializable {
     @ColumnInfo(name="activo")
     private boolean activo;
 
-    public Pessoa(int id, String nome, int idade, int peso, int sexo, String ano_carta, boolean profissional, boolean activo) {
+    public Pessoa(int id, String nome, int idade, int peso, int sexo,
+                  String ano_carta, boolean profissional, boolean activo) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;

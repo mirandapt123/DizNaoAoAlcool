@@ -65,20 +65,22 @@ public class NoProfile extends AppCompatActivity {
                 titulo.setText("Criação de novo perfil:");
             }
         }else{
-            Toast.makeText( this, "Não foi encontrado nenhum perfil, crie um perfil.", Toast.LENGTH_LONG ).show();
+            Toast.makeText( this, "Não foi encontrado nenhum perfil.", Toast.LENGTH_LONG ).show();
             TextView titulo = findViewById(R.id.textView2);
             titulo.setText("Não foi encontrado um perfil. Crie um:");
         }
         msg_erro = findViewById(R.id.msg_erro_validacao);
         msg_erro.setVisibility(View.INVISIBLE);
+
         //coloca os sexos num spinner. Hoje em dia dizem que há mais que 2, mas nós somos antiquados :)
-        Spinner dropdown = findViewById(R.id.sexo_input);
         String[] items= new String[2];
         items[0] = "Masculino";
         items[1] = "Feminino";
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
+        dropdownSexo.setAdapter(adapter);
+
         profissional();
+
         Button botaoAdicionar = (Button) findViewById(R.id.btn_validar);
         if(editar){
             botaoAdicionar.setText("Editar Perfil");
@@ -147,7 +149,7 @@ public class NoProfile extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-    //cria um peril com os dados introduzidos
+    //cria um perfil com os dados introduzidos
     public void editaPerfil() {
         //obtem campos
         int profissional = dropdownProfissional.getSelectedItemPosition();
@@ -194,7 +196,9 @@ public class NoProfile extends AppCompatActivity {
                                         profissionalB = true;
                                     }
                                     //novo objeto a utilizar para alterar os dados presentes na db
-                                    Pessoa p = new Pessoa(pessoa.getId(), nome.getText().toString(), idadeInt, pesoInt, sexo, dataCarta.getText().toString(), profissionalB, pessoa.isActivo());
+                                    Pessoa p = new Pessoa(pessoa.getId(), nome.getText().toString(), idadeInt,
+                                                            pesoInt, sexo, dataCarta.getText().toString(), profissionalB,
+                                                            pessoa.isActivo());
 
                                     //altera o objecto na db, se correr bem (return true = siga, return false = ocorreu um erro)
                                     if (new DataBase(this).alterarPessoa(p)) {
@@ -280,7 +284,9 @@ public class NoProfile extends AppCompatActivity {
                                     }
                                     //insere o utilizador na db, criando primeiro um objecto do Tipo pessoa. Linguagem orientada a objectos, não se deve passar os atributos isolados
                                     int id = new DataBase(this).quantidadePerfil();
-                                    Pessoa p = new Pessoa(id + 1, nome.getText().toString(), idadeInt, pesoInt, sexo, dataCarta.getText().toString(), profissionalB, true);
+                                    Pessoa p = new Pessoa(id + 1, nome.getText().toString(), idadeInt,
+                                                            pesoInt, sexo, dataCarta.getText().toString(),
+                                                            profissionalB, true);
 
                                     //insere o objecto na db, se correr bem (return true = siga, return false = ocorreu um erro
                                     if (new DataBase(this).inserirPessoa(p)) {

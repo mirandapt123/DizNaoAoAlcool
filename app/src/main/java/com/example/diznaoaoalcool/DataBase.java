@@ -134,8 +134,9 @@ public class DataBase extends SQLiteOpenHelper {
         null);
     if (c.moveToFirst()) {
       do {
-        TA taobj = new TA(c.getInt(0), c.getInt(1), c.getString(2), c.getDouble(3), c.getString(4), c.getString(5),
-            c.getString(6));
+        TA taobj = new TA(c.getInt(0), c.getInt(1), c.getString(2),
+                          c.getDouble(3), c.getString(4), c.getString(5),
+                          c.getString(6));
         ta.add(taobj);
         contador++;
       } while (c.moveToNext());
